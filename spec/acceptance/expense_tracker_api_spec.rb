@@ -1,5 +1,6 @@
 require 'rack/test'
 require 'json'
+require_relative '../../app/api'
 
 module ExpenseTracker
   RSpec.describe 'Expense Tracker API' do
