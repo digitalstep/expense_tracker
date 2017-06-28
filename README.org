@@ -1,0 +1,8 @@
+* Expense Tracker RSpec Demo
+
+** How to build
+   #+BEGIN_SRC bash
+   # install ruby
+   gem install bundler
+   bundle install
+   #+END_SRC
