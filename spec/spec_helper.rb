@@ -2,6 +2,9 @@ ENV['RACK_ENV'] = 'test'
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.when_first_matching_example_defined(:db) do
+    require_relative 'support/db'
+  end
 
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -18,7 +21,7 @@ RSpec.configure do |config|
 
   config.filter_run_when_matching :focus
 
-  config.example_status_persistence_file_path = "spec/examples.txt"
+  config.example_status_persistence_file_path = 'spec/examples.txt'
 
   # Limits the available syntax to the non-monkey patched syntax that is
   # recommended. For more details, see:
@@ -30,7 +33,7 @@ RSpec.configure do |config|
   config.warnings = true
 
   if config.files_to_run.one?
-    config.default_formatter = "doc"
+    config.default_formatter = 'doc'
   end
 
   # Print the 10 slowest examples and example groups
