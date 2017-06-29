@@ -6,24 +6,20 @@ module ExpenseTracker
   RSpec.describe API do
     include Rack::Test::Methods
 
-
     def app
       API.new(ledger: ledger)
     end
 
-    let(:ledger) {
-      instance_double('ExpenseTracker::Ledger')
-    }
+    let(:ledger) { instance_double('ExpenseTracker::Ledger') }
 
     describe 'POST /expenses' do
-
       context 'when the expense is successfully recorded' do
         let(:expense) { { 'some' => 'data' } }
 
         before do
           allow(ledger).to receive(:record)
-                             .with(expense)
-                             .and_return(RecordResult.new(true, 417, nil))
+            .with(expense)
+            .and_return(RecordResult.new(true, 417, nil))
         end
 
         it 'returns the expense id' do
@@ -59,19 +55,26 @@ module ExpenseTracker
           expect(last_response.status).to eq(422)
         end
       end
-
     end
 
     describe 'GET /expenses/:date' do
       context 'when an expenses exist on the given date' do
         it 'returns the expense records as JSON'
-        it 'responds with a 200 (OK)'
+        it 'responds with a 200 (OK)' do
+          get '/expenses/2017-06-12'
+          expect(last_response.status).to eq(200)
+        end
       end
       context 'when there are no expenses on the given date' do
-        it 'returns an empty array as JSON'
-        it 'responds with a 200 (OK)'
+        it 'returns an empty array as JSON' do
+          get '/expenses/2017-06-12'
+          expect(JSON.parse(last_response.body)).to eq([])
+        end
+        it 'responds with a 200 (OK)' do
+          get '/expenses/2017-06-12'
+          expect(last_response.status).to eq(200)
+        end
       end
     end
-
   end
 end
