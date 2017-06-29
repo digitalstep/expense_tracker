@@ -28,7 +28,6 @@ module ExpenseTracker
 
         it 'returns the expense id' do
           post '/expenses', JSON.generate(expense)
-
           parsed = JSON.parse(last_response.body)
           expect(parsed).to include('expense_id' => 417)
         end
@@ -61,6 +60,17 @@ module ExpenseTracker
         end
       end
 
+    end
+
+    describe 'GET /expenses/:date' do
+      context 'when an expenses exist on the given date' do
+        it 'returns the expense records as JSON'
+        it 'responds with a 200 (OK)'
+      end
+      context 'when there are no expenses on the given date' do
+        it 'returns an empty array as JSON'
+        it 'responds with a 200 (OK)'
+      end
     end
 
   end
