@@ -87,7 +87,8 @@ module ExpenseTracker
             .and_return(JSON.generate(expenses))
 
           get '/expenses/2017-06-12'
-          expect(JSON.parse(last_response.body)).to eq([])
+          parsed = JSON.parse(last_response.body)
+          expect(parsed).to eq("[]")
         end
         it 'responds with a 200 (OK)' do
           allow(ledger).to receive(:expenses_on)
