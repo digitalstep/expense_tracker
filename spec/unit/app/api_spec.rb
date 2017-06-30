@@ -36,13 +36,13 @@ module ExpenseTracker
       end
 
       context 'when the expense fails validation' do
-        let(:expense) { { 'some' => 'data' } }
-
         before do
           allow(ledger).to receive(:record)
-                             .with(expense)
-                             .and_return(RecordResult.new(false, 417, 'Expense incomplete'))
+            .with(expense)
+            .and_return(RecordResult.new(false, 417, 'Expense incomplete'))
         end
+        it 'returns an error message'
+        pending it 'responds with a 422 (Unprocessable entity)' do
 
         it 'returns an error message' do
           post '/expenses', JSON.generate(expense)
@@ -63,6 +63,7 @@ module ExpenseTracker
           { 'id' => '1' },
           { 'id' => '2' }
         ]
+
         it 'returns the expense records as JSON' do
           allow(ledger).to receive(:expenses_on)
             .with('2017-06-12')
